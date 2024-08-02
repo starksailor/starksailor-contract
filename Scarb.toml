@@ -1,0 +1,37 @@
+[package]
+cairo-version = "2.6.3"
+name = "stark_sailor_v11"
+version = "1.0.0"
+
+[cairo]
+sierra-replace-ids = true
+
+[scripts]
+
+[dependencies]
+dojo = { git = "https://github.com/dojoengine/dojo", tag = "v0.7.4" }
+
+[[target.dojo]]
+
+[tool.dojo]
+initializer_class_hash = "0xbeef"
+
+[tool.dojo.env]
+rpc_url = "http://localhost:5050"
+# Default account for katana with seed = 0s
+account_address = "0xabcd"
+private_key = "0xabcd"
+# world_address = "" # Update this line with your world address
+
+[tool.dojo.world]
+name = "Stark Sailor"
+description = "Stark Sailor - Explore, Discover, Battle on Starknet's oceanic playground."
+cover_uri = "https://assets.starksailor.net/starksailor/upload/cover.png"
+icon_uri = "https://assets.starksailor.net/starksailor/upload/icon.png"
+website = "https://starksailor.net/"
+
+[tool.dojo.world.socials]
+x = "https://twitter.com/playStarkSailor"
+discord = "https://discord.gg/tCwW6Tph"
+github = "https://github.com/starksailor/Stark-Sailor"
+telegram = "https://t.me/dojoengine"
