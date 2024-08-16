@@ -14,7 +14,7 @@ mod setup {
     };
 
     // Internal imports
-    use stark_sailor_v11::{
+    use stark_sailor_v1::{
         systems::actions::{actions, IActionsDispatcher, IActionsDispatcherTrait},
         models::{
             game::{Game, game},

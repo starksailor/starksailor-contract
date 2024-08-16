@@ -8,10 +8,11 @@ mod MoveActionsComponent {
     use dojo::world::{IWorldDispatcher, IWorldDispatcherTrait};
 
     // Local imports
-    use stark_sailor_v11::{
+    use stark_sailor_v1::{
         constants::game::GAME_ID,
         components::interfaces::move::IMoveActions,
-        models::{treasure_trip::{TreasureTrip}, game::{Game}, position::{Position}, move::{Movement}}
+        models::{treasure_trip::{TreasureTrip}, game::{Game}, position::{Position}, move::{Movement}},
+        events::MovedEvent,
     };
 
     // Storage
@@ -21,7 +22,9 @@ mod MoveActionsComponent {
     // Events
     #[event]
     #[derive(Drop, starknet::Event)]
-    enum Event {}
+    enum Event {
+        MovedEvent: MovedEvent
+    }
 
     #[embeddable_as(MoveImpl)]
     impl MoveTrait<
@@ -34,6 +37,7 @@ mod MoveActionsComponent {
             y_position: u32
         ) {
             let player_address = get_caller_address();
+            let timestamp = get_block_timestamp();
 
             // Get treasure trip by player address
             let mut treasure_trip = get!(world, (player_address), TreasureTrip);
@@ -56,7 +60,7 @@ mod MoveActionsComponent {
                 world,
                 (Movement {
                     move_id: game.total_move,
-                    timestamp: get_block_timestamp(),
+                    timestamp: timestamp,
                     player_address: player_address,
                     old_position: old_position,
                     new_position: treasure_trip.position
@@ -65,6 +69,15 @@ mod MoveActionsComponent {
 
             // Save game
             set!(world, (game));
+
+            // Emit event
+            emit!(world, (Event::MovedEvent(MovedEvent {
+                move_id: game.total_move,
+                player_address,
+                timestamp,
+                old_position,
+                new_position: treasure_trip.position
+            })));
         }
     }
 }

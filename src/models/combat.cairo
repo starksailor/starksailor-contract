@@ -1,4 +1,4 @@
-use stark_sailor_v11::models::ship::Ship;
+use stark_sailor_v1::models::ship::Ship;
 
 #[derive(Drop, Serde)]
 #[dojo::model]

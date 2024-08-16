@@ -7,7 +7,7 @@ use starknet::{ContractAddress};
 use dojo::world::{IWorldDispatcher, IWorldDispatcherTrait};
 
 // Internal imports
-use stark_sailor_v11::models::{
+use stark_sailor_v1::models::{
     game::{Game}, ship::{Ship}, move::{Movement}, treasure_trip::{TreasureTrip}, combat::{Combat},
 };
 

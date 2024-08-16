@@ -1,6 +1,7 @@
 mod constants {
     mod game;
 }
+mod events;
 mod components {
     mod interfaces {
         mod combat;

@@ -8,7 +8,7 @@ trait IActions<TContractState> {
 #[dojo::contract]
 mod actions {
     // Component imports
-    use stark_sailor_v11::components::{combat::CombatActionsComponent, move::MoveActionsComponent};
+    use stark_sailor_v1::components::{combat::CombatActionsComponent, move::MoveActionsComponent};
 
     // Components
     component!(path: MoveActionsComponent, storage: moves, event: MoveEvent);

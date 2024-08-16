@@ -8,10 +8,11 @@ mod CombatActionsComponent {
     use dojo::world::{IWorldDispatcher, IWorldDispatcherTrait};
 
     // Local imports
-    use stark_sailor_v11::{
+    use stark_sailor_v1::{
         constants::game::GAME_ID,
         components::interfaces::combat::ICombatActions,
-        models::{combat::{Combat, CombatResult}, game::{Game}, ship::{Ship}}
+        models::{combat::{Combat, CombatResult}, game::{Game}, ship::{Ship}},
+        events::CombatFinishedEvent,
     };
 
     // Storage
@@ -21,7 +22,9 @@ mod CombatActionsComponent {
     // Events
     #[event]
     #[derive(Drop, starknet::Event)]
-    enum Event {}
+    enum Event {
+        CombatFinishedEvent: CombatFinishedEvent
+    }
 
     #[embeddable_as(CombatImpl)]
     impl CombatTrait<
@@ -37,6 +40,7 @@ mod CombatActionsComponent {
             let caller = get_caller_address();
             let ally_ships_data = @ally_ships;
             let ally_ships_num = ally_ships.len();
+            let ally_ships_clone = ally_ships.clone(); // for emit event
 
             // Increase total combat
             let mut game = get!(world, (GAME_ID), Game);
@@ -82,6 +86,13 @@ mod CombatActionsComponent {
 
             // Save game
             set!(world, (game));
+
+            // Emit event
+            emit!(world, (Event::CombatFinishedEvent(CombatFinishedEvent {
+                combat_id: game.total_combat,
+                ally_ships: ally_ships_clone,
+                result: game_result
+            })));
         }
     }
 }

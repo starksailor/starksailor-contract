@@ -17,7 +17,7 @@ echo "--------------------------------------------------------------------------
 # enable system -> models authorizations
 
 # enable system -> component authorizations
-MODELS=("Combat" "Game" "Move" "Ship")
+MODELS=("Combat" "Game" "Movement" "Ship" "TreasureTrip")
 ACTIONS=($ACTION_ADDRESS)
 
 command="sozo auth grant --world $WORLD_ADDRESS --wait writer "

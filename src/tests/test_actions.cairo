@@ -8,7 +8,7 @@ use starknet::{
 use dojo::world::{IWorldDispatcher, IWorldDispatcherTrait};
 
 // Internal imports
-use stark_sailor_v11::{
+use stark_sailor_v1::{
     constants::game::GAME_ID,
     systems::{actions::{IActionsDispatcher, IActionsDispatcherTrait}},
     models::{
