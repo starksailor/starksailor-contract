@@ -36,6 +36,9 @@ mod MoveActionsComponent {
             x_position: u32,
             y_position: u32
         ) {
+            // Params validation
+            assert(x_position >= 0 && y_position >= 0, 'error: invalid position');
+
             let player_address = get_caller_address();
             let timestamp = get_block_timestamp();
 

@@ -37,6 +37,9 @@ mod CombatActionsComponent {
             health_ships: Array<u32>,
             result: bool
         ) {
+            // Params validation
+            assert(ally_ships.len() == health_ships.len(), 'error: invalid ships length');
+
             let caller = get_caller_address();
             let ally_ships_data = @ally_ships;
             let ally_ships_num = ally_ships.len();
