@@ -25,6 +25,8 @@ impl StoreImpl of StoreTrait {
         Store { world: world }
     }
 
+    // Getters
+
     #[inline(always)]
     fn get_game(self: Store, game_id: u128) -> Game {
         get!(self.world, (game_id), Game)
@@ -48,5 +50,32 @@ impl StoreImpl of StoreTrait {
     #[inline(always)]
     fn get_move(self: Store, move_id: u32) -> Movement {
         get!(self.world, (move_id), Movement)
+    }
+
+    // Setters
+
+    #[inline(always)]
+    fn set_game(self: Store, game: Game) {
+        set!(self.world, (game));
+    }
+
+    #[inline(always)]
+    fn set_treasure_trip(self: Store, treasure_trip: TreasureTrip) {
+        set!(self.world, (treasure_trip));
+    }
+
+    #[inline(always)]
+    fn set_ship(self: Store, ship: Ship) {
+        set!(self.world, (ship));
+    }
+
+    #[inline(always)]
+    fn set_combat(self: Store, combat: Combat) {
+        set!(self.world, (combat));
+    }
+
+    #[inline(always)]
+    fn set_move(self: Store, movement: Movement) {
+        set!(self.world, (movement));
     }
 }

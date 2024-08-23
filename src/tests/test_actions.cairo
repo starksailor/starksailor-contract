@@ -11,13 +11,9 @@ use dojo::world::{IWorldDispatcher, IWorldDispatcherTrait};
 use stark_sailor_v1::{
     constants::game::GAME_ID,
     systems::{actions::{IActionsDispatcher, IActionsDispatcherTrait}},
-    models::{
-        combat::{CombatResult},
-    },
-    tests::{
-        store::{Store, StoreTrait},
-        setup::{setup, setup::{Systems, Context}}
-    }
+    models::{combat::{CombatResult}},
+    store::{Store, StoreTrait},
+    tests::{setup::{setup, setup::{Systems, Context}}}
 };
 
 #[test]

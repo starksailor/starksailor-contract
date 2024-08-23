@@ -18,6 +18,7 @@ mod models {
     mod game;
     mod treasure_trip;
 }
+mod store;
 mod systems {
     mod actions;
 }
@@ -25,6 +26,5 @@ mod systems {
 #[cfg(test)]
 mod tests {
     mod setup;
-    mod store;
     mod test_actions;
 }

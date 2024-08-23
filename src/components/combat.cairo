@@ -13,6 +13,7 @@ mod CombatActionsComponent {
         components::interfaces::combat::ICombatActions,
         models::{combat::{Combat, CombatResult}, game::{Game}, ship::{Ship}},
         events::CombatFinishedEvent,
+        store::{Store, StoreImpl}
     };
 
     // Storage
@@ -40,13 +41,16 @@ mod CombatActionsComponent {
             // Params validation
             assert(ally_ships.len() == health_ships.len(), 'error: invalid ships length');
 
+            // Get datastore
+            let store: Store = StoreImpl::new(world);
+
             let caller = get_caller_address();
             let ally_ships_data = @ally_ships;
             let ally_ships_num = ally_ships.len();
             let ally_ships_clone = ally_ships.clone(); // for emit event
 
             // Increase total combat
-            let mut game = get!(world, (GAME_ID), Game);
+            let mut game = store.get_game(GAME_ID);
             game.total_combat += 1;
 
             // Decide result
@@ -66,36 +70,39 @@ mod CombatActionsComponent {
                 let ship_id: u32 = *ally_ships_data.at(i);
 
                 // Get ship
-                let mut ship = get!(world, (caller, ship_id), Ship);
+                let mut ship = store.get_ship(caller, ship_id);
 
                 // Save ship health
                 ship.health = *health_ships.at(i);
 
                 // Save ship
-                set!(world, (ship));
+                store.set_ship(ship);
 
                 i = i + 1;
             };
 
             // Save combat
-            set!(
-                world,
-                (Combat {
-                    combat_id: game.total_combat,
-                    ally_ships,
-                    result: game_result
-                })
-            );
+            let new_combat: Combat = Combat {
+                combat_id: game.total_combat,
+                ally_ships,
+                result: game_result
+            };
+            store.set_combat(new_combat);
 
             // Save game
-            set!(world, (game));
+            store.set_game(game);
 
             // Emit event
-            emit!(world, (Event::CombatFinishedEvent(CombatFinishedEvent {
-                combat_id: game.total_combat,
-                ally_ships: ally_ships_clone,
-                result: game_result
-            })));
+            emit!(
+                world,
+                (Event::CombatFinishedEvent
+                    (CombatFinishedEvent {
+                        combat_id: game.total_combat,
+                        ally_ships: ally_ships_clone,
+                        result: game_result
+                    })
+                )
+            );
         }
     }
 }
