@@ -3,11 +3,8 @@ set -euo pipefail
 pushd $(dirname "$0")/..
 
 export RPC_URL="http://localhost:5050"
-
-# export WORLD_ADDRESS=$(cat ./manifests/dev/manifest.json | jq -r '.world.address')
-# export ACTION_ADDRESS=$(cat ./manifests/dev/manifest.json | jq -r '.contracts[] | select(.name == "dragark_2::systems::actions::actions" ).address')
-export WORLD_ADDRESS="0xabcd"
-export ACTION_ADDRESS="0xabcd"
+export WORLD_ADDRESS=""
+export ACTION_ADDRESS=""
 
 echo "---------------------------------------------------------------------------"
 echo world : $WORLD_ADDRESS
@@ -17,7 +14,7 @@ echo "--------------------------------------------------------------------------
 # enable system -> models authorizations
 
 # enable system -> component authorizations
-MODELS=("Combat" "Game" "Movement" "Ship" "TreasureTrip")
+MODELS=("Combat" "Game" "Inventory" "Movement" "Nonce" "PlayerGlobal" "Ship" "TreasureTrip" "WeaponCard" "Chest")
 ACTIONS=($ACTION_ADDRESS)
 
 command="sozo auth grant --world $WORLD_ADDRESS --wait writer "

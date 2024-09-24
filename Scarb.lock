@@ -15,8 +15,14 @@ version = "0.4.1"
 source = "git+https://github.com/dojoengine/dojo?tag=v0.7.2#3da5cad9fdd39b81551e0668015d88262e6c5fc4"
 
 [[package]]
-name = "stark_sailor_v1"
+name = "pragma_lib"
+version = "1.0.0"
+source = "git+https://github.com/astraly-labs/pragma-lib?rev=fe9a467#fe9a46743254182ac331da488ccfc05e0185cdd0"
+
+[[package]]
+name = "stark_sailor"
 version = "1.0.0"
 dependencies = [
  "dojo",
+ "pragma_lib",
 ]

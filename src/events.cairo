@@ -1,11 +1,11 @@
 use starknet::ContractAddress;
-use stark_sailor_v1::models::{combat::CombatResult, position::Position};
+use stark_sailor::models::{combat::CombatResult, position::Position};
 
 #[derive(Drop, Serde, starknet::Event)]
 struct CombatFinishedEvent {
     #[key]
     combat_id: u128,
-    ally_ships: Array<u32>,
+    ally_ships: Array<u128>,
     result: CombatResult,
 }
 
